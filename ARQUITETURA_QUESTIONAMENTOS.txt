@@ -1,0 +1,30 @@
+Escalabilidade:
+Com 1000 usuários simultâneos, o uso de SQLite e cache em memória pode causar problemas de concorrência, lentidão e possíveis travamentos. SQLite não é recomendado para alta concorrência, pois bloqueia o banco em operações de escrita. O rate limiting e o cache não são compartilhados entre instâncias, dificultando o controle em ambientes distribuídos.
+
+Disponibilidade:
+Os principais pontos de falha são:
+- Banco de dados SQLite (único arquivo, sem replicação)
+- Cache e rate limiting em memória (volátil, não compartilhado)
+- Logs apenas no console (sem persistência)
+- Ausência de balanceamento de carga ou redundância
+
+Performance:
+Os gargalos estão em:
+- Operações de escrita/leitura concorrentes no SQLite
+- Filtros por tags usando LIKE (ineficiente para grandes volumes)
+- Cache e rate limiting não otimizados para múltiplas instâncias
+
+Manutenção:
+A atualização em produção exigiria:
+- Parada do servidor para atualização do código
+- Backup manual do banco SQLite
+- Risco de perda de cache e rate limiting
+- Ausência de deploy automatizado ou rollback
+
+Evolução:
+Para suportar múltiplas regiões seria necessário:
+- Migrar para banco de dados distribuído (ex: PostgreSQL, MongoDB)
+- Implementar cache e rate limiting distribuídos (ex: Redis)
+- Adotar balanceamento de carga e replicação
+- Persistir logs em serviço externo
+- Automatizar deploy e monitoramento

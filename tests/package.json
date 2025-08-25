@@ -1,0 +1,29 @@
+{
+  "name": "task-api-tests",
+  "version": "1.0.0",
+  "description": "Suite de testes de estresse e segurança para Task Management API",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js full",
+    "test:stress": "node index.js stress",
+    "test:security": "node index.js security",
+    "test:quick": "node index.js quick",
+    "test:auth": "node test-auth.js",
+    "test:examples": "node example-usage.js",
+    "help": "node index.js help"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "colors": "^1.4.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "test",
+    "stress",
+    "security",
+    "performance",
+    "api"
+  ],
+  "author": "LabAppMoveis",
+  "license": "MIT"
+}
